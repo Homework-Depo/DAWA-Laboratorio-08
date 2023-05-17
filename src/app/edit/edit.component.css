@@ -1,0 +1,22 @@
+
+h1 {
+  margin: 10px;
+}
+form {
+  margin: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+mat-form-field {
+  margin-bottom: 10px;
+}
+
+button {
+  align-self: flex-start;
+}
