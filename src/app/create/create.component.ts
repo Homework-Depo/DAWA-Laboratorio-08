@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Route } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class CreateComponent {
 
   productForm: FormGroup
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
     this.productForm = this.fb.group({
       id: '',
       description: '',
@@ -25,5 +25,6 @@ export class CreateComponent {
   submitProduct() {
     const newProduct = this.productForm.value
     this.productService.createProduct(newProduct)
+    this.router.navigate(['/'])
   }
 }

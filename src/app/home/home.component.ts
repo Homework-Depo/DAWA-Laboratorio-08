@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from '../models/Product';
 import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,23 @@ export class HomeComponent {
   displayedColumns: string[];
   products: Product[];
 
-  constructor(private productService: ProductService) {
+  constructor(public productService: ProductService, private router: Router) {
     this.products = productService.products
-    this.displayedColumns = ['id', 'description', 'price']
+    this.displayedColumns = ['id', 'description', 'price', 'op']
   }
+
+  submitProduct(product: Product) {
+    this.productService.product = product
+    this.router.navigate(['/editar'])
+  }
+
+  sendToDelete(product: Product) {
+    this.productService.deleteProduct(product)
+    this.reloadData()
+  }
+
+  reloadData() {
+    this.products = this.productService.products
+  }
+
 } 

@@ -34,8 +34,9 @@ export class ProductService {
     },
   ] */
   products: Product[]
+  product: Product
 
-  constructor() { 
+  constructor() {
     this.products = [
       {
         id: 1,
@@ -63,9 +64,26 @@ export class ProductService {
         price: 555
       },
     ]
+    this.product = {
+      id: -1,
+      description: '',
+      price: -1
+    }
   }
 
   createProduct(product: Product) {
     this.products.push(product)
+  }
+
+  editProduct(product: Product) {
+    const index = this.products.findIndex(sproduct => sproduct.id === product.id)
+
+    this.products[index] = product
+  }
+
+  deleteProduct(product: Product) {
+    const index = this.products.findIndex(sproduct => sproduct.id === product.id)
+
+    this.products.splice(index, 1)
   }
 }

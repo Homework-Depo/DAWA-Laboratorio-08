@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductService } from '../services/product.service';
+import { Product } from '../models/Product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -10,17 +12,19 @@ import { ProductService } from '../services/product.service';
 export class EditComponent {
   productForm: FormGroup
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
     this.productForm = this.fb.group({
-      id: '',
-      description: '',
-      price: ''
+      id: this.productService.product.id,
+      description: this.productService.product.description,
+      price: this.productService.product.price
     })
 
     this.productForm.valueChanges.subscribe()
   }
 
   submitProduct() {
-    
+    const editedProduct: Product = this.productForm.value
+    this.productService.editProduct(editedProduct)
+    this.router.navigate(['/'])
   }
 }
